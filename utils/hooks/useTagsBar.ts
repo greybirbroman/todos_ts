@@ -8,9 +8,13 @@ const useTagsBar = () => {
   const [selectedTagsInModal, setSelectedTagsInModal] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
-  const resetTags = () => {
+  const resetTagsInModal = () => {
     setSelectedTagsInModal([]);
   };
+
+  const resetTags = () => {
+    setSelectedTags([])
+  }
 
   const handleSelectTagInModal = (selectedTag: Tag) => {
     if (selectedTagsInModal.some((tag: Tag) => tag.name === selectedTag.name)) {
@@ -38,6 +42,7 @@ const useTagsBar = () => {
     setSelectedTagsInModal,
     handleSelectTag,
     handleSelectTagInModal,
+    resetTagsInModal,
     resetTags,
   };
 };

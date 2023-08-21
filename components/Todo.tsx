@@ -1,10 +1,12 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+import { getColorByPriority } from '@/utils/functions';
 import { TodoProps } from '@/types';
 import CustomButton from './CustomButton';
 import { useTodoContext } from '@/utils/context/TodosContext';
 import { useModalContext } from '@/utils/context/ModalContext';
+import { motion as m } from 'framer-motion'
 
 const Todo = ({
   title,
@@ -23,16 +25,16 @@ const Todo = ({
     modal: { openModalEditTodo },
   } = useModalContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isRapid = priority === 'bg-red-700'
+  const isRapid = priority === 'rapid'
 
-  // DELETE TODO
+  // EDIT TODO
   const handleEditTodo = () => {
     selectCurrentTodo(id);
     openModalEditTodo();
     toggleMenuSettings();
   };
-
-  // EDIT TODO
+  
+  // DELETE TODO
   const handleDeleteTodo = () => {
     deleteTodo(id)
   }
@@ -50,7 +52,8 @@ const Todo = ({
   const MenuSettings = () => {
     return (
       isMenuOpen && (
-        <div className='flex flex-col gap-2 absolute bg-white text-gray-700 right-2 top-10 py-2 px-2 w-[100px] rounded-lg'>
+        <div className='flex flex-col gap-2 absolute bg-slate-100 text-gray-700 right-0 top-6 py-2 px-2 w-[100px] border rounded-lg'
+        >
           <CustomButton
             title='Edit'
             imageSrc='/edit-icon.svg'
@@ -69,9 +72,12 @@ const Todo = ({
   };
 
   return (
-    <div
-    className={`${isRapid && !isDone ? 'text-white' : 'text-gray-700' } flex flex-col justify-between gap-2 p-4 rounded-xl shadow-xl relative cursor-default ${
-      !isDone ? priority : 'bg-slate-100 line-through'
+    <m.div
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    transition={{duration: 0.3}}
+    className={`${isRapid && !isDone ? 'text-white' : 'text-gray-700' } flex flex-col justify-between gap-2 p-4 rounded-xl shadow-xl relative cursor-default duration-300 ${
+      !isDone ? getColorByPriority(priority) : 'bg-slate-100 line-through'
     }`}
     onClick={handleOutsideMenuClick}
     >
@@ -102,7 +108,7 @@ const Todo = ({
             {tags.map((tag, index) => (
               <li
                 key={index}
-                className={`${tag.color} rounded-full w-5 h-5`}
+                className={`${tag.color} rounded-full w-5 h-5 ring-1 ring-white`}
               ></li>
             ))}
           </ul>
@@ -120,7 +126,7 @@ const Todo = ({
           />
         </div>
       </div>
-    </div>
+    </m.div>
   );
 };
 

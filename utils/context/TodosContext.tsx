@@ -1,7 +1,11 @@
 'use client'
-import React, { createContext, useContext } from 'react';
+import React, { ReactNode, createContext, useContext } from 'react';
 import useTodos from '../hooks/useTodos'
 import { TodoState } from '@/types';
+
+interface TodosContextProps {
+  children: ReactNode
+}
 
 interface TodosContextType {
   todo: TodoState;
@@ -9,7 +13,7 @@ interface TodosContextType {
 
 const TodoContext = createContext<TodosContextType | undefined>(undefined);
 
-export const TodoProvider = ({ children }: any) => {
+export const TodoProvider = ({ children }: TodosContextProps) => {
   const todo = useTodos()
 
   return <TodoContext.Provider value={{ todo }}>{children}</TodoContext.Provider>

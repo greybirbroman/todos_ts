@@ -1,21 +1,21 @@
 'use client';
 import { useSearchBarContext } from '@/utils/context/SearchContext';
-import Image from 'next/image';
+import CustomButton from './CustomButton';
 
 const SearchField = () => {
   const {
-    state: { searchQuery, handleChange, handleSearch, resetSearchQuery },
+    state: { searchQuery, handleChange, resetSearchQuery },
   } = useSearchBarContext();
 
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault(), handleSearch;
+        e.preventDefault();
       }}
-      className='flex'
+      className='flex w-full'
     >
       <input
-        className='w-full h-[55px] bg-white/50 focus:bg-white text-gray-700 text-sm rounded-xl p-2 outline-none placeholder:text-white hover:placeholder:text-cyan-700 hover:placeholder:duration-300'
+        className='w-full h-[55px] bg-white/50 hover:bg-white focus:bg-white text-gray-700 rounded-xl p-2 outline-none placeholder:text-white hover:placeholder:text-gray-700 duration-300'
         type='text'
         id='search'
         name='search'
@@ -25,20 +25,16 @@ const SearchField = () => {
         required
         autoComplete='off'
       />
-      {searchQuery && (
-        <div
-          className='relative flex items-center cursor-pointer bg-white/50 hover:bg-cyan-700 duration-300 p-4 rounded-full ml-5'
-          onClick={resetSearchQuery}
-        >
-          <Image
-            src='/close_icon.svg'
-            alt='Clear Field Icon'
-            width={24}
-            height={24}
-            className=''
+      <div className='flex'>
+        {searchQuery && (
+          <CustomButton
+            onClick={resetSearchQuery}
+            imageSrc='/close_icon.svg'
+            customClass='flex items-center cursor-pointer bg-white/50 hover:bg-cyan-700 duration-300 p-4 rounded-full ml-5'
           />
-        </div>
-      )}
+        )}
+       
+      </div>
     </form>
   );
 };

@@ -2,14 +2,14 @@
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ModalWindow from './ModalWindow';
-import CustomButton from './CustomButton';
-import { getTaskColorByPriority, formatDate } from '@/utils/functions';
+import CustomButton from '../CustomButton';
+import { formatDate } from '@/utils/functions';
 import { useModalContext } from '@/utils/context/ModalContext';
 import { useTodoContext } from '@/utils/context/TodosContext';
 import { usePriorityBarContext } from '@/utils/context/PriorityBarConext';
 import { useTagsBarContext } from '@/utils/context/TagsBarContext';
 import useForm from '@/utils/hooks/useForm';
-import { PriorityBar, TagsBar } from '.';
+import { PriorityBar, TagsBar } from '..';
 
 const ModalAddTodo = () => {
   const {
@@ -25,15 +25,15 @@ const ModalAddTodo = () => {
   } = usePriorityBarContext();
 
   const {
-    state: { selectedTagsInModal, resetTags },
+    state: { selectedTagsInModal, resetTagsInModal },
   } = useTagsBarContext();
 
-  const { values, resetValues, handleChange } = useForm();
+  const { values, resetValues, handleChange, disabledButton } = useForm();
 
   const resetForm = () => {
     resetPriority();
     resetValues();
-    resetTags();
+    resetTagsInModal();
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const ModalAddTodo = () => {
       title: values.title,
       description: values.description,
       createdAt: formatDate(new Date()),
-      priority: getTaskColorByPriority(priority) || '',
+      priority: priority || '',
       isDone: false,
       tags: selectedTagsInModal,
     };
@@ -58,7 +58,7 @@ const ModalAddTodo = () => {
     <ModalWindow isOpen={isModalAddOpen} onClose={closeModals}>
       <form
         id='add'
-        className='flex flex-col gap-5 p-4 max-w-[500px]'
+        className='flex flex-col gap-5 p-4 max-w-[500px] text-gray-700'
         onSubmit={handleAddNewTodo}
       >
         <div className='flex justify-between items-center'>
@@ -70,7 +70,12 @@ const ModalAddTodo = () => {
           <CustomButton
             title='Add Task'
             type='submit'
-            customClass='font-semibold border-2 border-cyan-700 py-2 px-5 rounded-xl hover:bg-cyan-700 hover:text-white duration-300'
+            customClass={`font-semibold border-2 border-cyan-700 py-2 px-5 rounded-xl duration-300 ${
+              disabledButton
+                ? 'text-gray-300 border-gray-300'
+                : 'hover:bg-cyan-700 hover:text-white'
+            }`}
+            disabled={disabledButton}
           />
         </div>
         <fieldset className='flex flex-col'>

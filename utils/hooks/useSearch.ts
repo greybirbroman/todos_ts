@@ -1,27 +1,9 @@
 'use client';
-import { useState, useEffect, ChangeEvent } from 'react';
-import { useTodoContext } from '../context/TodosContext';
+
+import { useState, ChangeEvent } from 'react';
 
 const useSearch = () => {
-  const {
-    todo: { filterTodo },
-  } = useTodoContext();
-
   const [searchQuery, setSearchQuery] = useState('');
-
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     handleSearch(); // Вызываем filterTodo с текущим значением searchQuery
-  //   }, 500);
-  //   // Очищаем таймер при каждом изменении searchQuery
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [searchQuery]);
-
-  // const handleSearch = () => {
-  //   filterTodo(searchQuery);
-  // };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -34,7 +16,6 @@ const useSearch = () => {
   return {
     searchQuery,
     handleChange,
-    //handleSearch,
     resetSearchQuery,
   };
 };

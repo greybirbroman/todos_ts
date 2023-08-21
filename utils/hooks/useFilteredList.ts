@@ -3,20 +3,32 @@ import { useMemo, useState, useEffect } from 'react';
 import { useTodoContext } from '../context/TodosContext';
 import { useSearchBarContext } from '../context/SearchContext';
 import { useTagsBarContext } from '../context/TagsBarContext';
+import { usePriorityBarContext } from '../context/PriorityBarConext';
 
 const useFilteredList = () => {
   const {
     todo: { todoList },
   } = useTodoContext();
   const {
-    state: { searchQuery },
+    state: { searchQuery, resetSearchQuery },
   } = useSearchBarContext();
   const {
-    state: { selectedTags },
+    state: { selectedTags, resetTags },
   } = useTagsBarContext();
 
+  const {
+    state: { priorityOnFilter, resetPriority },
+  } = usePriorityBarContext();
+
+
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
-  const [searchMessage, setSearchMessage] = useState('')
+  const [searchMessage, setSearchMessage] = useState('');
+
+  const resetFilters = () => {
+    resetSearchQuery()
+    resetTags()
+    resetPriority()
+  }
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -28,9 +40,8 @@ const useFilteredList = () => {
     };
   }, [searchQuery]);
 
-
   const filteredList = useMemo(() => {
-    // Фильтруем задачи на основе searchQuery и selectedTags
+    
     let filtered = todoList;
     setSearchMessage(`У вас еще нет задач ...`);
     if (debouncedSearchQuery !== '') {
@@ -38,9 +49,18 @@ const useFilteredList = () => {
         (todo) =>
           todo?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
           todo?.description?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      if(filtered.length === 0) {
-        setSearchMessage(`К сожалению по запросу ${searchQuery} ничего не нашлось ...`);
+      );
+      if (filtered.length === 0) {
+        setSearchMessage(
+          `К сожалению по запросу "${searchQuery}" ничего не нашлось ...`
+        );
+      }
+    }
+
+    if (priorityOnFilter) {
+      filtered = filtered.filter((todo) => todo.priority === priorityOnFilter);
+      if (filtered.length === 0) {
+        setSearchMessage(`Не нашлось задач удовлетворяющих приоритету "${priorityOnFilter}" ...`);
       }
     }
 
@@ -50,16 +70,17 @@ const useFilteredList = () => {
           selectedTags.some((selectedTag) => selectedTag.name === tag.name)
         )
       );
-      if(filtered.length === 0) {
-        setSearchMessage('Не нашлось задач удовлетворяющих фильтрации ...');
+      if (filtered.length === 0) {
+        setSearchMessage(`У Вас нет задач удовлетворяющих фильтру ${selectedTags.map((tag) => tag.name).join(' или ')}...`);
       }
     }
     return filtered;
-  }, [debouncedSearchQuery, selectedTags, todoList]);
+  }, [debouncedSearchQuery, selectedTags, priorityOnFilter, todoList]);
 
   return {
     filteredList,
-    searchMessage
+    resetFilters,
+    searchMessage,
   };
 };
 

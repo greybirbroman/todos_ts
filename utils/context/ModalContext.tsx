@@ -1,7 +1,12 @@
 'use client'
 
-import React, { createContext, useContext } from 'react';
-import useModal, { ModalState } from '../hooks/useModal';
+import React, { createContext, useContext, ReactNode } from 'react';
+import useModal from '../hooks/useModal';
+import { ModalState } from '@/types';
+
+interface ModalContextProps {
+  children: ReactNode
+}
 
 interface ModalContextType {
   modal: ModalState;
@@ -9,7 +14,7 @@ interface ModalContextType {
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider = ({ children }: any) => {
+export const ModalProvider = ({ children }: ModalContextProps) => {
   const modal = useModal();
 
   return <ModalContext.Provider value={{ modal }}>{children}</ModalContext.Provider>

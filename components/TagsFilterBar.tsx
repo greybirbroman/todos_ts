@@ -7,12 +7,8 @@ const TagsFilterBar = () => {
     state: { tags, selectedTags, handleSelectTag },
   } = useTagsBarContext();
 
-
-  console.log(selectedTags)
-
-
   return (
-    <ul className='flex flex-wrap xs:flex lg:flex-col md:flex-col sm:flex-col gap-2'>
+    <ul className='flex flex-wrap lg:flex-col gap-2'>
       {tags.map((tag) => (
         <li 
         key={tag.name}

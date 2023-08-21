@@ -1,14 +1,13 @@
 'use client';
 import { useEffect } from 'react';
 import ModalWindow from './ModalWindow';
-import CustomButton from './CustomButton';
-import { getTaskColorByPriority, getPriorityByColor } from '@/utils/functions';
+import CustomButton from '../CustomButton';
 import { useModalContext } from '@/utils/context/ModalContext';
 import { useTodoContext } from '@/utils/context/TodosContext';
 import { usePriorityBarContext } from '@/utils/context/PriorityBarConext';
 import { useTagsBarContext } from '@/utils/context/TagsBarContext';
 import useForm from '@/utils/hooks/useForm';
-import { PriorityBar, TagsBar } from '.';
+import { PriorityBar, TagsBar } from '..';
 
 const ModalEditTodo = () => {
   const {
@@ -36,7 +35,7 @@ const ModalEditTodo = () => {
             description: currentTodo.description || '',
         });
         setSelectedTagsInModal(currentTodo.tags || [])
-        setPriority(getPriorityByColor(currentTodo.priority) || '')
+        setPriority((currentTodo.priority) || '')
     }
   }, [isModalEditOpen]);
 
@@ -48,7 +47,7 @@ const ModalEditTodo = () => {
           title: values.title || currentTodo?.title,
           description: values.description || currentTodo?.description,
           createdAt: currentTodo.createdAt,
-          priority: getTaskColorByPriority(priority) || '',
+          priority: priority || '',
           isDone: currentTodo.isDone,
           tags: selectedTagsInModal,
         };
@@ -61,7 +60,7 @@ const ModalEditTodo = () => {
     <ModalWindow isOpen={isModalEditOpen} onClose={closeModals}>
       <form
         id='add'
-        className='flex flex-col gap-5 p-4 max-w-[500px]'
+        className='flex flex-col gap-5 p-4 max-w-[500px] text-gray-700'
         onSubmit={handleEditTodo}
       >
         <div className='flex justify-between items-center'>

@@ -25,3 +25,8 @@ export const categories = [
   },
 ];
 
+export const priorityOptions = ['high', 'medium', 'low', 'rapid'];
+
+export const deleteAllConfirmMessage = 'Are you sure you want to delete All todos?'
+
+export const deleteAllDoneConfirmMessage = 'Are you sure you want to delete All completed todos?'

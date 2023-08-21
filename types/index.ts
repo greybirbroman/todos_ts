@@ -1,4 +1,4 @@
-import { MouseEventHandler, ChangeEvent } from 'react';
+import { MouseEventHandler, ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export interface CustomButtonProps {
   title?: string;
@@ -11,26 +11,25 @@ export interface CustomButtonProps {
 
 export interface TodoProps {
   id: string;
-  todo?: TodoProps;
   title?: string;
   description?: string;
   priority: string;
   tags?: Tag[];
-  createdAt?: string;
-  isDone?: boolean;
+  createdAt: string;
+  isDone: boolean;
 }
 
 export interface TodoState {
   todoList: TodoProps[];
-  filteredList: TodoProps[];
-  setFilteredList: React.Dispatch<React.SetStateAction<TodoProps[]>>;
+  setTodoList: Dispatch<SetStateAction<TodoProps[]>>;
   currentTodo: TodoProps | null;
+  setCurrentTodo: Dispatch<SetStateAction<TodoProps | null>>;
   addNewTodo: (newTodo: TodoProps) => void;
   updateTodo: (newTodo: TodoProps) => void;
   toggleTodoStatus: (id: string) => void;
   deleteTodo: (id: string) => void;
   deleteAllTodos: () => void;
-  filterTodo: (searchQuery: string) => void;
+  deleteAllIsDoneTodos: () => void;
   selectCurrentTodo: (id: string) => void;
   totalTodo: number;
   doneTodo: number;
@@ -45,22 +44,37 @@ export interface TagsBarState {
   tags: Tag[];
   selectedTags: Tag[];
   selectedTagsInModal: Tag[];
-  setSelectedTagsInModal: React.Dispatch<React.SetStateAction<Tag[]>>;
+  setSelectedTagsInModal: Dispatch<SetStateAction<Tag[]>>;
   handleSelectTag: (tag: Tag) => void;
   handleSelectTagInModal: (tag: Tag) => void;
+  resetTagsInModal: () => void;
   resetTags: () => void;
+}
+
+export interface ModalState {
+  isModalAddOpen: boolean;
+  isModalEditOpen: boolean;
+  isModalConfirmDeleteAllOpen: boolean;
+  isModalConfirmDeleteDoneOpen: boolean;
+  openModalAddTodo: () => void;
+  openModalEditTodo: () => void;
+  openModalConfirmDeleteAll: () => void;
+  openModalConfirmDeleteDone: () => void;
+  closeModals: () => void;
 }
 
 export interface PriorityBarState {
   priority: string;
-  setPriority: React.Dispatch<React.SetStateAction<string>>;
-  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  priorityOnFilter: string;
+  selected: string;
+  setPriority: Dispatch<SetStateAction<string>>;
+  handleSelectChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  handleSelect: (item: string) => void;
   resetPriority: () => void;
 }
 
 export interface SearchBarState {
   searchQuery: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleSearch: () => void;
   resetSearchQuery: () => void;
 }

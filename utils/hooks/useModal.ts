@@ -2,19 +2,13 @@
 
 import { useState, useEffect } from 'react'
 
-export interface ModalState {
-    isModalAddOpen: boolean;
-    isModalEditOpen: boolean;
-    openModalAddTodo: () => void;
-    openModalEditTodo: () => void;
-    closeModals: () => void;
-}
-
-
-const useModal = (): ModalState => {
+const useModal = () => {
 
     const [isModalAddOpen, setIsModalAddOpen] = useState(false)
     const [isModalEditOpen, setIsModalEditOpen] = useState(false)
+    const [isModalConfirmDeleteAllOpen, setIsModalConfirmDeleteAllOpen] = useState(false)
+    const [isModalConfirmDeleteDoneOpen, setIsModalConfirmDeleteDoneOpen] = useState(false)
+
 
     const openModalAddTodo = () => {
       setIsModalAddOpen(true)
@@ -24,9 +18,19 @@ const useModal = (): ModalState => {
       setIsModalEditOpen(true)
     }
 
+    const openModalConfirmDeleteAll = () => {
+      setIsModalConfirmDeleteAllOpen(true)
+    }
+
+    const openModalConfirmDeleteDone = () => {
+      setIsModalConfirmDeleteDoneOpen(true)
+    }
+
     const closeModals = () => {
       setIsModalAddOpen(false)
       setIsModalEditOpen(false)
+      setIsModalConfirmDeleteAllOpen(false)
+      setIsModalConfirmDeleteDoneOpen(false)
     }
 
     useEffect(() => {
@@ -46,8 +50,12 @@ const useModal = (): ModalState => {
     return {
         isModalAddOpen,
         isModalEditOpen,
+        isModalConfirmDeleteAllOpen,
+        isModalConfirmDeleteDoneOpen,
         openModalAddTodo,
         openModalEditTodo,
+        openModalConfirmDeleteAll,
+        openModalConfirmDeleteDone,
         closeModals,
     }
 }

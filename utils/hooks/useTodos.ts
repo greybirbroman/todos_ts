@@ -1,40 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TodoProps } from '@/types';
+import { showToast } from '../toaster';
 
 const useTodos = () => {
   const [todoList, setTodoList] = useState<TodoProps[]>([]);
-  const [filteredList, setFilteredList] = useState<TodoProps[]>([])
   const [currentTodo, setCurrentTodo] = useState<TodoProps | null>(null);
-  const totalTodo = todoList.length
-  const doneTodo = todoList.filter((item) => item.isDone).length
-  console.log(filteredList)
- 
-
-  // Для загрузки данных из LocalStorage
-  useEffect(() => {
-    const savedTodoList = localStorage.getItem('todos');
-    if (savedTodoList && todoList.length === 0) {
-      setTodoList(JSON.parse(savedTodoList));
-    }
-  }, []);
-
-  // Для обновления todos в LocalStorage
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todoList));
-  }, [todoList]);
-
-  useEffect(() => {
-    const savedCurrentTodo = localStorage.getItem('currentTodo');
-    if (savedCurrentTodo) {
-      setCurrentTodo(JSON.parse(savedCurrentTodo));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
-  }, [currentTodo]);
+  const totalTodo = todoList.length;
+  const doneTodo = todoList.filter((item) => item.isDone).length;
 
   const selectCurrentTodo = (id: string) => {
     const todoToEdit = todoList.find((item) => item.id === id);
@@ -48,6 +22,7 @@ const useTodos = () => {
       const newList = [newTodo, ...prev];
       return newList;
     });
+    showToast('New Todo successfuly added!');
   };
 
   const updateTodo = (newTodo: TodoProps) => {
@@ -60,6 +35,7 @@ const useTodos = () => {
       });
       return updatedList;
     });
+    showToast('Todo updated successfully!');
   };
 
   const deleteTodo = (id: string) => {
@@ -67,11 +43,19 @@ const useTodos = () => {
       const updated = prev.filter((todo) => todo.id !== id);
       return updated;
     });
+    showToast('Todo deleted successfully!');
   };
 
   const deleteAllTodos = () => {
-    setTodoList([])
-  }
+    setTodoList([]);
+  };
+
+  const deleteAllIsDoneTodos = () => {
+    setTodoList((prev) => {
+      const updated = prev.filter((todo) => !todo.isDone);
+      return updated;
+    });
+  };
 
   const toggleTodoStatus = (id: string) => {
     setTodoList((prev) => {
@@ -85,28 +69,21 @@ const useTodos = () => {
       return updated;
     });
   };
-  const filterTodo = (searchQuery: string) => {
-    const filtered = todoList.filter((todo) => {
-      return todo.title?.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-    setFilteredList(filtered);
-  };
-
 
   return {
     todoList,
-    filteredList,
-    setFilteredList,
+    setTodoList,
     addNewTodo,
     updateTodo,
     toggleTodoStatus,
     deleteTodo,
     deleteAllTodos,
-    filterTodo,
+    deleteAllIsDoneTodos,
     selectCurrentTodo,
     currentTodo,
+    setCurrentTodo,
     totalTodo,
-    doneTodo
+    doneTodo,
   };
 };
 export default useTodos;

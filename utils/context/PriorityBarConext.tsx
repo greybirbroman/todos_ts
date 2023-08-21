@@ -1,7 +1,11 @@
 'use client'
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
 import usePriorityBar from '../hooks/usePriorityBar';
 import { PriorityBarState } from '@/types';
+
+interface PriorityBarContactProps {
+  children: ReactNode
+}
 
 interface PriorityBarContextType {
   state: PriorityBarState;
@@ -9,7 +13,7 @@ interface PriorityBarContextType {
 
 const PriorityBarContext = createContext<PriorityBarContextType | undefined>(undefined);
 
-export const PriorityBarProvider = ({ children }: any) => {
+export const PriorityBarProvider = ({ children }: PriorityBarContactProps) => {
   const state = usePriorityBar()
 
   return <PriorityBarContext.Provider value={{ state }}>{children}</PriorityBarContext.Provider>

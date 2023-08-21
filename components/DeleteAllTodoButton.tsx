@@ -1,15 +1,24 @@
-'use client'
+'use client';
 
-import CustomButton from "./CustomButton";
-import { useTodoContext } from "@/utils/context/TodosContext";
+import CustomButton from './CustomButton';
+import { useTodoContext } from '@/utils/context/TodosContext';
+import { useModalContext } from '@/utils/context/ModalContext';
 
 const DeleteAllTodoButton = () => {
-    const {todo: {deleteAllTodos}} = useTodoContext()
-  return (
-    <div className="bg-white/50 p-3 rounded-full flex hover:scale-110 hover:bg-cyan-700 cursor-pointer duration-300 w-fit h-fit" onClick={deleteAllTodos}>
-        <CustomButton imageSrc="/delete-icon.svg"/> 
-    </div>
-  )
-}
+  const {
+    todo: { deleteAllTodos },
+  } = useTodoContext();
 
-export default DeleteAllTodoButton
+  const {modal: { openModalConfirmDeleteAll }} = useModalContext()
+
+  return (
+    <CustomButton
+      imageSrc='/delete-icon.svg'
+      title='Delete All'
+      customClass='flex items-center gap-2 bg-white/50 p-4 w-fit h-fit rounded-xl hover:scale-105 hover:bg-white duration-300 whitespace-nowrap'
+      onClick={openModalConfirmDeleteAll}
+    />
+  );
+};
+
+export default DeleteAllTodoButton;

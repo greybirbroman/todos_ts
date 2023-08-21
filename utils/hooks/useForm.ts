@@ -13,6 +13,7 @@ export interface FormState {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   resetValues: () => void;
+  disabledButton: boolean
 }
 
 const useForm = () => {
@@ -31,6 +32,8 @@ const useForm = () => {
     setValues(initialValues);
 };
 
+const disabledButton = (!values.title && !values.description)
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -48,6 +51,7 @@ const useForm = () => {
     setValues,
     handleChange,
     resetValues,
+    disabledButton,
   };
 };
 

@@ -1,8 +1,12 @@
 'use client'
 
-import React, { createContext, useContext } from 'react';
+import React, { ReactNode, createContext, useContext } from 'react';
 import useTagsBar from '../hooks/useTagsBar';
 import { TagsBarState } from '@/types';
+
+interface TagsBarContextProps {
+  children: ReactNode
+}
 
 interface TagsBarContextType {
     state: TagsBarState
@@ -10,7 +14,7 @@ interface TagsBarContextType {
 
 const TagsBarContext = createContext<TagsBarContextType | undefined>(undefined);
 
-export const TagsBarProvider = ({ children }: any) => {
+export const TagsBarProvider = ({ children }: TagsBarContextProps) => {
     const state = useTagsBar()
   
     return <TagsBarContext.Provider value={{ state }}>{children}</TagsBarContext.Provider>
