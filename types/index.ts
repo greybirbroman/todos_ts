@@ -1,4 +1,4 @@
-import { MouseEventHandler, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { MouseEventHandler, ChangeEvent, Dispatch, SetStateAction, ReactNode } from 'react';
 
 export interface CustomButtonProps {
   title?: string;
@@ -17,6 +17,12 @@ export interface TodoProps {
   tags?: Tag[];
   createdAt: string;
   isDone: boolean;
+}
+
+export interface TodoMenuProps {
+  isOpen: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 export interface TodoState {
@@ -49,6 +55,13 @@ export interface TagsBarState {
   handleSelectTagInModal: (tag: Tag) => void;
   resetTagsInModal: () => void;
   resetTags: () => void;
+}
+
+
+export interface ModalProps {
+  children: ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export interface ModalState {

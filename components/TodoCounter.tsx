@@ -5,11 +5,14 @@ const TodoCounter = () => {
     todo: { totalTodo, doneTodo },
   } = useTodoContext();
 
+  const isVisible = totalTodo !== doneTodo
+
   return (
-    <div className='bg-white/50 h-full px-5 flex rounded-xl cursor-default'>
-      <p className='self-start text-lg font-semibold'>{doneTodo}</p>
-      <span className='self-center text-lg font-bold text-cyan-700'>/</span>
-      <p className='self-end text-lg font-semibold'>{totalTodo}</p>
+    isVisible &&
+    <div className='h-full flex gap-1 cursor-default font-bold text-white sm:text-[32px] text-[20px]'>
+      <p className=''>{doneTodo}</p>
+      <span className=' text-cyan-700'>/</span>
+      <p className=''>{totalTodo}</p>
     </div>
   );
 };

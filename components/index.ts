@@ -13,6 +13,7 @@ import Loader from "./Loader";
 import SearchField from "./SearchField";
 import DeleteAllIsDoneTodoButton from "./DeleteAllIsDoneTodoButton";
 import DeleteAllTodoButton from "./DeleteAllTodoButton";
+import SearchMessageField from "./SearchMessageField";
 
 export {
     Header,
@@ -34,6 +35,7 @@ export {
     Loader,
     // SEARCH
     SearchField,
+    SearchMessageField,
     // BUTTONS
     DeleteAllTodoButton,
     DeleteAllIsDoneTodoButton

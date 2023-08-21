@@ -1,8 +1,7 @@
 'use client'
-import React from 'react';
 import ModalWindow from './ModalWindow';
-import { useModalContext } from '@/utils/context/ModalContext';
 import CustomButton from '../CustomButton';
+import { useModalContext } from '@/utils/context/ModalContext';
 
 interface ModalConfirmProps {
   isOpen: boolean;

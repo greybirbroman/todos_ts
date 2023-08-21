@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-}
-
 .custom-body {
   @apply bg-slate-700 max-w-[1440px] mx-auto h-[100vh] flex flex-col justify-between
 }

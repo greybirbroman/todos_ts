@@ -43,12 +43,15 @@ const useFilteredList = () => {
   const filteredList = useMemo(() => {
     
     let filtered = todoList;
+    const lowCaseQuery = debouncedSearchQuery.toLowerCase()
     setSearchMessage(`У вас еще нет задач ...`);
     if (debouncedSearchQuery !== '') {
       filtered = filtered.filter(
         (todo) =>
-          todo?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          todo?.description?.toLowerCase().includes(searchQuery.toLowerCase())
+          todo?.title?.toLowerCase().includes(lowCaseQuery) ||
+          todo?.description?.toLowerCase().includes(lowCaseQuery) ||
+          todo.tags?.some((tag) => tag.name.toLowerCase().includes(lowCaseQuery)) ||
+          todo.priority.toLowerCase().includes(lowCaseQuery)
       );
       if (filtered.length === 0) {
         setSearchMessage(
@@ -57,7 +60,7 @@ const useFilteredList = () => {
       }
     }
 
-    if (priorityOnFilter) {
+    if (priorityOnFilter && !searchQuery) {
       filtered = filtered.filter((todo) => todo.priority === priorityOnFilter);
       if (filtered.length === 0) {
         setSearchMessage(`Не нашлось задач удовлетворяющих приоритету "${priorityOnFilter}" ...`);

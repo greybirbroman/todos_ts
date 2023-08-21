@@ -21,7 +21,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='flex max-lg:flex-col gap-5'>
+        <div className='flex max-lg:flex-1 max-lg:flex-col gap-5'>
           <div className='flex lg:flex-col lg:gap-5'>
             <TagsFilterBar />
           </div>

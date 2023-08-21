@@ -1,6 +1,6 @@
 'use client'
-
 import { useState, useEffect } from 'react'
+import { lockScroll, unLockScroll } from '../lockScroll'
 
 const useModal = () => {
 
@@ -9,21 +9,24 @@ const useModal = () => {
     const [isModalConfirmDeleteAllOpen, setIsModalConfirmDeleteAllOpen] = useState(false)
     const [isModalConfirmDeleteDoneOpen, setIsModalConfirmDeleteDoneOpen] = useState(false)
 
-
     const openModalAddTodo = () => {
       setIsModalAddOpen(true)
+      lockScroll()
     }
 
     const openModalEditTodo = () => {
       setIsModalEditOpen(true)
+      lockScroll()
     }
 
     const openModalConfirmDeleteAll = () => {
       setIsModalConfirmDeleteAllOpen(true)
+      lockScroll()
     }
 
     const openModalConfirmDeleteDone = () => {
       setIsModalConfirmDeleteDoneOpen(true)
+      lockScroll()
     }
 
     const closeModals = () => {
@@ -31,21 +34,19 @@ const useModal = () => {
       setIsModalEditOpen(false)
       setIsModalConfirmDeleteAllOpen(false)
       setIsModalConfirmDeleteDoneOpen(false)
+      unLockScroll()
     }
 
     useEffect(() => {
         const handleEscapeKey = (e: KeyboardEvent) => {
-          if (e.key === 'Escape') {
-           closeModals()
-          }
+          e.key === 'Escape' ? closeModals() : null
         };
-        if (isModalAddOpen || isModalEditOpen) {
-          document.addEventListener('keydown', handleEscapeKey);
-          return () => {
-            document.removeEventListener('keydown', handleEscapeKey);
-          };
+          document.body.addEventListener('keydown', handleEscapeKey);
+          return (): void => {
+            document.body.removeEventListener('keydown', handleEscapeKey);
         }
-      }, [isModalAddOpen, isModalEditOpen]);
+      }, [closeModals]);
+
 
     return {
         isModalAddOpen,
