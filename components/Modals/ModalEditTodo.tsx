@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, FormEvent } from 'react';
 import ModalWindow from './ModalWindow';
 import CustomButton from '../CustomButton';
 import { useModalContext } from '@/utils/context/ModalContext';
@@ -40,7 +40,8 @@ const ModalEditTodo = () => {
   }, [isModalEditOpen]);
 
 
-  const handleEditTodo = () => {
+  const handleEditTodo = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     if(currentTodo) {
         const newTodo = {
           id: currentTodo.id,

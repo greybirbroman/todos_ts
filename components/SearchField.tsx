@@ -1,4 +1,5 @@
 'use client';
+import { FormEvent } from 'react';
 import { useSearchBarContext } from '@/utils/context/SearchContext';
 import CustomButton from './CustomButton';
 
@@ -9,7 +10,7 @@ const SearchField = () => {
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
       }}
       className='flex w-full items-center'
