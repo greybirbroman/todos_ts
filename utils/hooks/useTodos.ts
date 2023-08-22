@@ -48,6 +48,7 @@ const useTodos = () => {
 
   const deleteAllTodos = () => {
     setTodoList([]);
+    localStorage.clear()
   };
 
   const deleteAllIsDoneTodos = () => {

@@ -1,15 +1,11 @@
 'use client';
-
 import CustomButton from './CustomButton';
-import { useTodoContext } from '@/utils/context/TodosContext';
 import { useModalContext } from '@/utils/context/ModalContext';
 
 const DeleteAllTodoButton = () => {
   const {
-    todo: { deleteAllTodos },
-  } = useTodoContext();
-
-  const {modal: { openModalConfirmDeleteAll }} = useModalContext()
+    modal: { openModalConfirmDeleteAll },
+  } = useModalContext();
 
   return (
     <CustomButton

@@ -80,7 +80,7 @@ const ModalEditTodo = () => {
           <input
             type='text'
             name='title'
-            placeholder='Title here...'
+            placeholder='Todo title here...'
             value={values.title}
             onChange={handleChange}
             className='bg-slate-50 border border-gray-500 rounded-lg p-2'
@@ -92,7 +92,7 @@ const ModalEditTodo = () => {
           <textarea
             rows={4}
             name='description'
-            placeholder='Description here...'
+            placeholder='Todo description here...'
             value={values.description}
             onChange={handleChange}
             className='bg-slate-50 border border-gray-500 rounded-lg p-2'

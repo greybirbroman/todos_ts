@@ -7,13 +7,12 @@ import CustomButton from './CustomButton';
 import { useTodoContext } from '@/utils/context/TodosContext';
 import { useModalContext } from '@/utils/context/ModalContext';
 import { motion as m } from 'framer-motion';
+import { todoVariants } from '@/utils/motion';
 
-const TodoMenu = ({isOpen, onEdit, onDelete}: TodoMenuProps) => {
+const TodoMenu = ({ isOpen, onEdit, onDelete }: TodoMenuProps) => {
   if (!isOpen) return null;
   return (
-    <div
-      className='flex flex-col gap-2 absolute bg-slate-100 text-gray-700 right-0 top-6 py-2 px-2 w-[100px] border rounded-lg'
-    >
+    <div className='flex flex-col gap-2 absolute bg-slate-100 text-gray-700 right-0 top-6 py-2 px-2 w-[100px] border rounded-lg'>
       <CustomButton
         title='Edit'
         imageSrc='/edit-icon.svg'
@@ -39,7 +38,6 @@ const Todo = ({
   isDone,
   id,
 }: TodoProps) => {
-  
   const {
     todo: { toggleTodoStatus, deleteTodo, selectCurrentTodo },
   } = useTodoContext();
@@ -68,16 +66,16 @@ const Todo = ({
   };
 
   const handleClickOutsideMenu = () => {
-    if(isMenuOpen) {
+    if (isMenuOpen) {
       setIsMenuOpen(false);
     }
   };
 
   return (
     <m.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      variants={todoVariants}
+      initial='initial'
+      animate='show'
       className={`${
         isRapid && !isDone ? 'text-white' : 'text-gray-700'
       } flex flex-col justify-between gap-2 p-4 rounded-xl shadow-xl relative cursor-default duration-300 ${
@@ -104,7 +102,11 @@ const Todo = ({
           imageSrc='/menu-settings.svg'
           onClick={toggleMenuSettings}
         />
-         <TodoMenu isOpen={isMenuOpen} onEdit={handleEditTodo} onDelete={handleDeleteTodo}/>
+        <TodoMenu
+          isOpen={isMenuOpen}
+          onEdit={handleEditTodo}
+          onDelete={handleDeleteTodo}
+        />
       </div>
       <p className='text-sm'>{description}</p>
       {tags && tags.length > 0 && (
@@ -119,8 +121,8 @@ const Todo = ({
           </ul>
         </div>
       )}
-      <div className='flex items-center justify-between'>
-        <p className='capitalize text-[14px]'>{createdAt}</p>
+      <div className='flex items-center justify-between text-[14px]'>
+        <p className='capitalize'>{createdAt}</p>
         <div className='flex items-center gap-2'>
           <CustomButton title='done' onClick={() => toggleTodoStatus(id)} />
           <input

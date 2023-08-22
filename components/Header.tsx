@@ -15,7 +15,7 @@ const Header = () => {
     <header className='flex flex-wrap justify-between items-center p-4 sm:p-8'>
       <div className='flex items-center gap-2'>
       <Link href='/' className='font-bold sm:text-[32px] text-[20px] text-white hover:text-cyan-700 hover:scale-110 duration-300' onClick={resetFilters}>
-        My Todo's
+        My Todo&apos;s
       </Link>
       <TodoCounter />
       </div>

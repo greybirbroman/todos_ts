@@ -1,20 +1,28 @@
 'use client';
 import { ModalProps } from '@/types';
 import ModalPortal from './ModalPortal';
+import { motion as m } from 'framer-motion';
+import { modalVariants } from '@/utils/motion';
 
 const ModalWindow = ({ children, isOpen, onClose }: ModalProps) => {
-
   if (!isOpen) return null;
 
   return (
     <>
       <ModalPortal wrapperId='react-portal-container'>
-        <div
-          onClick={onClose}
-          className='fixed inset-0 z-40 bg-black/50'
-        />
-        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white shadow-lg rounded-lg max-w-full min-w-[300px] max-h-full transition-all overflow-hidden'>
-          {children}
+        <div className='fixed inset-0 z-40 flex items-center justify-center'>
+          <div
+            className='absolute inset-0 bg-black/50 backdrop-blur-[3px]'
+            onClick={onClose}
+          />
+          <m.div
+            variants={modalVariants}
+            initial='hidden'
+            animate='show'
+            className='relative min-w-fit bg-white rounded-lg overflow-hidden mx-4'
+          >
+            {children}
+          </m.div>
         </div>
       </ModalPortal>
     </>

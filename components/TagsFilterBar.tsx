@@ -12,9 +12,9 @@ const TagsFilterBar = () => {
       {tags.map((tag) => (
         <li 
         key={tag.name}
-        className={`flex gap-2 items-center text-lg hover:text-black hover:bg-white/50 duration-300 rounded-full py-2 px-5 cursor-pointer w-fit ${selectedTags &&
+        className={`flex gap-2 items-center text-lg hover:text-gray-700 hover:bg-white/50 duration-300 rounded-full py-2 px-5 cursor-pointer w-fit ${selectedTags &&
        selectedTags.some((item) => item.name === tag.name)
-            ? 'bg-white text-black'
+            ? 'bg-white text-gray-700'
             : 'text-white'}`}
         onClick={() => handleSelectTag(tag)}
         >

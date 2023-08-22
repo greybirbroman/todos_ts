@@ -1,13 +1,13 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import Modals from '@/components/Modals/Modals';
 import { Header, Footer } from '@/components';
 import GlobalState from './providers';
 import { ToastContainer } from 'react-toastify';
 
-const inter = Montserrat({ subsets: ['cyrillic'] });
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
   title: 'Todos TS + Next.js | Roman Fedorov',
@@ -21,7 +21,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang='ru'>
-      <body className={`${inter.className} custom-body`}>
+      <body className={`${poppins.className} custom-body`}>
         <GlobalState>
           <Modals />
           <Header />

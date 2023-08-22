@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { priorityOptions } from '@/utils/contsants';
 import { getColorByPriority } from '@/utils/functions';
 import { usePriorityBarContext } from '@/utils/context/PriorityBarConext';

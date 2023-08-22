@@ -26,6 +26,8 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.2"
+    "@types/uuid": "^9.0.2",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.19"
   }
 }

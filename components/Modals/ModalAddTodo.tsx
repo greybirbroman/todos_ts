@@ -83,7 +83,7 @@ const ModalAddTodo = () => {
           <input
             type='text'
             name='title'
-            placeholder='Title here...'
+            placeholder='Todo title here...'
             value={values.title || ''}
             onChange={handleChange}
             className='bg-slate-50 rounded-lg p-2 focus:outline-cyan-700'
@@ -95,7 +95,7 @@ const ModalAddTodo = () => {
           <textarea
             rows={4}
             name='description'
-            placeholder='Description here...'
+            placeholder='Todo description here...'
             value={values.description || ''}
             onChange={handleChange}
             className='bg-slate-100  rounded-lg p-2 focus:outline-cyan-700'

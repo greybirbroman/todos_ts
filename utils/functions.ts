@@ -1,10 +1,11 @@
-export function getColorByPriority(priority: string) {
+export function getColorByPriority(priority: string): string {
     if(priority) {
         if (priority === 'medium') return 'bg-yellow-400';
         if (priority === 'low') return 'bg-green-400';
         if(priority === 'rapid') return 'bg-red-700'
         return 'bg-red-400';
     }
+    return ''
   }
 
  export const formatDate = (date: Date): string => {
