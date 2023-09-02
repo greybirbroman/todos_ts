@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, FormEvent } from 'react';
+import { useEffect, FormEvent, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ModalWindow from './ModalWindow';
 import CustomButton from '../CustomButton';
@@ -30,18 +30,18 @@ const ModalAddTodo = () => {
 
   const { values, resetValues, handleChange, disabledButton } = useForm();
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     resetPriority();
     resetValues();
     resetTagsInModal();
-  };
+  }, [resetPriority, resetValues, resetTagsInModal]);
 
   useEffect(() => {
     resetForm();
   }, [isModalAddOpen]);
 
-  const handleAddNewTodo = (event: FormEvent<HTMLFormElement> ) => {
-    event.preventDefault()
+  const handleAddNewTodo = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const newTodo = {
       id: uuidv4(),
       title: values.title,
